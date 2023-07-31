@@ -21,7 +21,7 @@ Tecnologias usadas:
 ***
 Para la instalacion, primero tener ```node 18.14.2```
 ```
-$ git clone https://github.com/JDOV7/devJobs.git
+$ git clone https://github.com/JDOV7/Meeti.git
 $ cd ../path/to/the/file
 $ npm install
 $ npm run desarrollo
