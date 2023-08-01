@@ -16,6 +16,9 @@ Tecnologias usadas:
 * NodeJS: Version 18.14.2
 * Express: Version 4.18.2
 * MySQL: Version *
+* EJS: Version 3.1.9
+* [Trix](https://github.com/basecamp/trix/tree/custom-elements-v1): Version 1
+* Nodemailer: Version 6.9.4
 
 ## Instalacion
 ***

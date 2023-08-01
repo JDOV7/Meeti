@@ -1,0 +1,34 @@
+<main class="contenedor contenedor-formularios no-padding">
+  <h1><%= nombrePagina %></h1>
+
+  <form action="/nuevo-grupo" method="post" class="default-form">
+    <div class="campo">
+      <label for="">Nombre</label>
+      <input type="text" name="nombre" placeholder="Nombre Grupo" />
+    </div>
+    <div class="campo descripcion">
+      <label for="">Descripcion</label>
+      <div class="contenedor-editor">
+        <input type="hidden" name="descripcion" id="x" />
+        <trix-editor input="x"></trix-editor>
+      </div>
+    </div>
+    <div class="campo">
+      <label for="">Categoria</label>
+      <select name="categoria" id="">
+        <option value="" selected disabled>-- Elige una categoria --</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label for="">Imagen</label>
+      <input type="file" name="imagen" />
+    </div>
+    <div class="campo">
+      <label for="">Sitio Web</label>
+      <input type="url" name="url" placeholder="Sitio Web" />
+    </div>
+    <div class="campo enviar">
+      <input type="submit" value="Crear Grupo" class="btn btn-rosa" />
+    </div>
+  </form>
+</main>

@@ -5,8 +5,10 @@ const path = require("path");
 const flash = require("connect-flash");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+
 const router = require("./routes/index");
 const db = require("./config/db");
+const passport = require("./config/passport");
 require("./models/Usuarios");
 
 //configuracion y modelos de la bd
@@ -51,6 +53,10 @@ app.use(
     // store: MongoStore.create({ mongoUrl: process.env.DATABASE }),
   })
 );
+
+//inicilizar passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 //agrega flash messages
 app.use(flash());
