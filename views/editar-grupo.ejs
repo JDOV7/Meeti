@@ -1,15 +1,25 @@
 <main class="contenedor contenedor-formularios no-padding">
   <h1><%= nombrePagina %></h1>
 
-  <form action="/nuevo-grupo" method="post" class="default-form" enctype="multipart/form-data">
+  <form method="post" class="default-form">
     <div class="campo">
       <label for="">Nombre</label>
-      <input type="text" name="nombre" placeholder="Nombre Grupo" />
+      <input
+        type="text"
+        value="<%= grupo.nombre%>"
+        name="nombre"
+        placeholder="Nombre Grupo"
+      />
     </div>
     <div class="campo descripcion">
       <label for="">Descripcion</label>
       <div class="contenedor-editor">
-        <input type="hidden" name="descripcion" id="x" />
+        <input
+          type="hidden"
+          value="<%= grupo.descripcion%>"
+          name="descripcion"
+          id="x"
+        />
         <trix-editor input="x"></trix-editor>
       </div>
     </div>
@@ -18,20 +28,23 @@
       <select name="categoriaId" id="">
         <option value="" selected disabled>-- Elige una categoria --</option>
         <% categorias.forEach(categoria =>{ %>
-          <option value="<%= categoria.id %>"><%= categoria.nombre %></option>
+        <option value="<%= categoria.id %>"
+            <%= (grupo.categoriaId===categoria.id)? 'selected':''%>
+            ><%= categoria.nombre %></option>
         <%})%>
       </select>
     </div>
     <div class="campo">
-      <label for="">Imagen</label>
-      <input type="file" name="imagen" />
-    </div>
-    <div class="campo">
       <label for="">Sitio Web</label>
-      <input type="url" name="url" placeholder="Sitio Web" />
+      <input
+        type="url"
+        value="<%= grupo.url%>"
+        name="url"
+        placeholder="Sitio Web"
+      />
     </div>
     <div class="campo enviar">
-      <input type="submit" value="Crear Grupo" class="btn btn-rosa" />
+      <input type="submit" value="Guardar Cambios" class="btn btn-rosa" />
     </div>
   </form>
 </main>

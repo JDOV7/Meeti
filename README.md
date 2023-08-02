@@ -27,6 +27,6 @@ Para la instalacion, primero tener ```node 18.14.2```
 $ git clone https://github.com/JDOV7/Meeti.git
 $ cd ../path/to/the/file
 $ npm install
-$ npm run desarrollo
+$ npm run start
 ```
 Ademas de esto se debe tener una base de datos en MySQL y tener una cuenta en mailtrap para probar los correos.

@@ -9,7 +9,10 @@ const cookieParser = require("cookie-parser");
 const router = require("./routes/index");
 const db = require("./config/db");
 const passport = require("./config/passport");
+
 require("./models/Usuarios");
+require("./models/Categorias");
+require("./models/Grupos");
 
 //configuracion y modelos de la bd
 try {

@@ -56,36 +56,26 @@
   <div class="seccion-admin">
     <h2>Tus Grupos</h2>
     <ul>
+      <% if(grupos.length){%> <% grupos.forEach(grupo =>{ %>
       <li>
         <div class="informacion-admin">
-          <h3>BlockChain Guadalajara</h3>
+          <h3><%= grupo.nombre%></h3>
         </div>
         <div class="acciones contenedor-botones">
-          <a href="#" class="btn btn-verde">Editar</a>
-          <a href="#" class="btn btn-azul2">Imagen</a>
-          <a href="#" class="btn btn-rojo">Eliminar</a>
+          <a href="/editar-grupo/<%= grupo.id%>" class="btn btn-verde"
+            >Editar</a
+          >
+          <a href="/imagen-grupo/<%= grupo.id%>" class="btn btn-azul2"
+            >Imagen</a
+          >
+          <a href="/eliminar-grupo/<%= grupo.id%>" class="btn btn-rojo"
+            >Eliminar</a
+          >
         </div>
       </li>
-      <li>
-        <div class="informacion-admin">
-          <h3>GraphQL Guadalajara</h3>
-        </div>
-        <div class="acciones contenedor-botones">
-          <a href="#" class="btn btn-verde">Editar</a>
-          <a href="#" class="btn btn-azul2">Imagen</a>
-          <a href="#" class="btn btn-rojo">Eliminar</a>
-        </div>
-      </li>
-      <li>
-        <div class="informacion-admin">
-          <h3>Java Veracruz</h3>
-        </div>
-        <div class="acciones contenedor-botones">
-          <a href="#" class="btn btn-verde">Editar</a>
-          <a href="#" class="btn btn-azul2">Imagen</a>
-          <a href="#" class="btn btn-rojo">Eliminar</a>
-        </div>
-      </li>
+      <%})%> <%}else{%>
+      <p>No tienes un grupo creado</p>
+      <%}%>
     </ul>
   </div>
 </main>
