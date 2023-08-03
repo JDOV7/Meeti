@@ -175,6 +175,11 @@ p {
     margin: 0;
 }
 
+#mapa{
+    height: 400px;
+    width:  800px;
+}
+
 
 /** layout**/
 .site-header {

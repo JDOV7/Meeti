@@ -1,6 +1,7 @@
 const { body, validationResult } = require("express-validator");
 const multer = require("multer");
 const shortid = require("shortid");
+const fs = require("fs");
 const Categorias = require("../models/Categorias");
 const Grupos = require("../models/Grupos");
 
@@ -88,4 +89,115 @@ exports.formEditarGrupo = async (req, res) => {
     grupo,
     categorias,
   });
+};
+
+exports.editarGrupo = async (req, res, next) => {
+  const grupo = await Grupos.findOne({
+    where: { id: req.params.grupoId, usuarioId: req.user.id },
+  });
+  // console.log(grupo);
+  if (!grupo) {
+    req.flash("error", "Operacion no valida");
+    res.redirect("/administracion");
+    return next();
+  }
+  // console.log(req.body);
+  const { nombre, descripcion, categoriaId, url } = req.body;
+  grupo.nombre = nombre;
+  grupo.descripcion = descripcion;
+  grupo.categoriaId = categoriaId;
+  grupo.url = url;
+
+  await grupo.save();
+  req.flash("exito", "Cambios almacenados correctamente");
+  return res.redirect("/administracion");
+};
+
+exports.formEditarImagen = async (req, res) => {
+  const grupo = await Grupos.findOne({
+    where: { id: req.params.grupoId, usuarioId: req.user.id },
+  });
+  console.log(grupo);
+  res.render("imagen-grupo", {
+    nombrePagina: `Editar Imagen Grupo: ${grupo.nombre}`,
+    grupo,
+  });
+};
+
+exports.editarImagen = async (req, res, next) => {
+  const grupo = await Grupos.findOne({
+    where: { id: req.params.grupoId, usuarioId: req.user.id },
+  });
+  if (!grupo) {
+    req.flash("error", "Operacion no valida");
+    return res.redirect("/iniciar-sesion");
+  }
+  // if (req.file) {
+  //   console.log(req.file.filename);
+  // }
+  // if (grupo.imagen) {
+  //   console.log(grupo.imagen);
+  // }
+  if (req.file && grupo.imagen) {
+    const imagenAnteriorPath =
+      __dirname + `/../public/uploads/grupos/${grupo.imagen}`;
+    console.log(imagenAnteriorPath);
+    //eliminar archivo con fs
+    fs.unlink(imagenAnteriorPath, (error) => {
+      if (error) {
+        console.log(error);
+      }
+      return;
+    });
+  }
+  if (req.file) {
+    grupo.imagen = req.file.filename;
+  }
+  await grupo.save();
+  req.flash("exito", "Cambios almacenados correctamente");
+  res.redirect("/administracion");
+};
+
+exports.formEliminarGrupo = async (req, res, next) => {
+  const grupo = await Grupos.findOne({
+    where: { id: req.params.grupoId, usuarioId: req.user.id },
+  });
+
+  if (!grupo) {
+    req.flash("error", "Operacion no valida");
+    return res.redirect("/iniciar-sesion");
+  }
+  return res.render("eliminar-grupo", {
+    nombrePagina: `Eliminar Grupo: ${grupo.nombre}`,
+  });
+};
+
+exports.eliminarGrupo = async (req, res) => {
+  const grupo = await Grupos.findOne({
+    where: { id: req.params.grupoId, usuarioId: req.user.id },
+  });
+
+  if (!grupo) {
+    req.flash("error", "Operacion no valida");
+    return res.redirect("/administracion");
+  }
+  // console.log(grupo.imagen);
+  if (grupo.imagen) {
+    const imagenAnteriorPath =
+      __dirname + `/../public/uploads/grupos/${grupo.imagen}`;
+    console.log(imagenAnteriorPath);
+    //eliminar archivo con fs
+    fs.unlink(imagenAnteriorPath, (error) => {
+      if (error) {
+        console.log(error);
+      }
+      return;
+    });
+  }
+
+  await Grupos.destroy({
+    where: { id: req.params.grupoId, usuarioId: req.user.id },
+  });
+  req.flash("exito", "Grupo Eliminado");
+  return res.redirect("/administracion");
 };
