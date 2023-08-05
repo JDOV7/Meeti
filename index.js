@@ -13,6 +13,7 @@ const passport = require("./config/passport");
 require("./models/Usuarios");
 require("./models/Categorias");
 require("./models/Grupos");
+require("./models/Meeti");
 
 //configuracion y modelos de la bd
 try {
